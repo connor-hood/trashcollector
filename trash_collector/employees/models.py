@@ -12,15 +12,11 @@ class Employee(models.Model):
     WEDNESDAY = 'Wednesday'
     THURSDAY = 'Thursday'
     FRIDAY = 'Friday'
-    SATURDAY = 'Saturday'
-    SUNDAY = 'Sunday'
     days_of_week = [
         MONDAY,
         TUESDAY,
         WEDNESDAY,
         THURSDAY,
         FRIDAY,
-        SATURDAY,
-        SUNDAY,
     ]
     pickup_day = models.DateField(days_of_week)
