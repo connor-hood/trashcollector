@@ -10,11 +10,11 @@ class Customer(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(verbose_name="email", max_length=100, unique=True)
     user = models.ForeignKey('accounts.User', blank=True, null=True, on_delete=models.CASCADE)
-
-
-    def __str__(self):
-        return self.name
     zipcode = models.IntegerField(max_length=5)
     collect_day = models.DateField
     special_day = models.DateField(datetime.datetime)
     balance = models.IntegerField(max_length=3)
+
+    def __str__(self):
+        return self.name
+
