@@ -6,8 +6,6 @@
 {% block header %} Edit Details {% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
         Hello {{ user.username }}
-        Please enter your name:
-    {% endif %}
+        Please enter your name: {{ form.as_p }}
 {% endblock %}
