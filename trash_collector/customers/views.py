@@ -26,6 +26,6 @@ def detail(request):
         special_day = request.POST.get('special_day')
         new_info = Customer(name=name, zip_code=zip_code, collect_day=collect_day, special_day=special_day, )
         new_info.save()
-        return HttpResponseRedirect(reverse('customers:create'))
+        return HttpResponseRedirect(reverse('customers:index'))
     else:
         return render(request, 'customers/cust_detail.html')

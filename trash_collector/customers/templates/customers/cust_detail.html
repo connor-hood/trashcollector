@@ -6,6 +6,22 @@
 {% block header %} Edit Details {% endblock %}
 
 {% block content %}
-        Hello {{ user.username }}
-        Please enter your name: {{ form.as_p }}
+        Hello {{ user.username }} <br>
+        <form action="{% url 'customers:detail'%}" method="post">
+            {% csrf_token %}
+        Please enter your name:  <input type="text" id="customer_name"><br>
+        Please enter your zip code: <input type="text" maxlength="5" id="zip_code"> <br>
+        Please enter your start pick up date. Your trash will be picked up on that day of the week going forward.
+                *please note, we do not pick up on Saturdays and Sundays*: <select id="pick_up">
+            <option value="default">--Select a day of the week--</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+        </select><br>
+        Please enter your ONE TIME special pick up date: <input type="date" id="special_day"> <br>
+        Please check if you would like your services to be suspended <input type="checkbox" id="is_suspended"><br>
+        <input type="submit">
+        </form>
 {% endblock %}
