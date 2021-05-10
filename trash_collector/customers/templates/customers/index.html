@@ -7,7 +7,12 @@
 
 {% block content %}
   {% if user.is_authenticated %}
-    Hello {{ user.username }}!<br><br>
+    Hello {{ user.username }}!<br>
+    Your current zip code pick up is: {{user.zip_code}} <br>
+    Your current pick up day is: {{user.collect_day}} <br>
+    Your special pick up day is: {{user.special_day}} <br>
+    Your current Balance is: {{user.balance}} <br>
+    Your suspension status: {{user.is_suspended}} <br><br>
     Edit details here: <a href="{% url 'customers:detail' %}">Click Here!</a>
   {% else %}
     <p>You are at the customer index, but you are not logged in.</p>
