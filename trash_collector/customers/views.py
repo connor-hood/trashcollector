@@ -20,12 +20,11 @@ def index(request):
 
 def detail(request):
     if request.method == 'POST':
-        name = request.POST.get('customer_name')
+        name = request.POST.get('name')
         zip_code = request.POST.get('zip_code')
         collect_day = request.POST.get('collect_day')
         special_day = request.POST.get('special_day')
         new_info = Customer(name=name, zip_code=zip_code, collect_day=collect_day, special_day=special_day)
-        new_info.save(update_fields=["name", "zip_code", "collect_day", "special_day"])
         return HttpResponseRedirect(reverse('customers:index'))
     else:
         return render(request, 'customers/cust_detail.html')
