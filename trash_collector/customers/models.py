@@ -7,11 +7,11 @@ from django.db import models
 
 
 class Customer(models.Model):
-    cust_name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     email = models.EmailField(verbose_name="email", max_length=100, unique=True)
     user = models.ForeignKey('accounts.User', blank=True, null=True, on_delete=models.CASCADE)
-    zipcode = models.IntegerField()
-    collect_day = models.DateField
+    zip_code = models.IntegerField()
+    collect_day = models.DateField()
     special_day = models.DateField(datetime.datetime)
     balance = models.IntegerField()
     is_suspended = models.BooleanField(False)
