@@ -4,10 +4,15 @@
 
 {% block content %}
   {% if user.is_authenticated %}
-    Hello Employee {{ user.username }}!
-  {% else %}
-    <p>You are at the employee index, but you are not logged in.</p>
-    <a href="{% url 'login' %}">Log In</a>
-    <a href="{% url 'accounts:register' %}">Sign Up</a>
+    <h1>Hello Employee {{ user.username }}!</h1>
+       <ul>
+           {% for one_customer in Customer %}
+           <li>
+               # if user zip equals customer zip
+               {% if one_customer.zipcode == user.zipcode %}
+               
+               {% endif %}
+           </li>
+       </ul>
   {% endif %}
 {% endblock %}
