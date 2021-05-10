@@ -24,7 +24,14 @@ def details(request, one_employee):
     context = {
         'one_employee': one_employee
     }
-    return render(request, 'employees/index.html', context)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        zip_code = request.POST.get('zip_code')
+        new_info = Customer(name=name, zip_code=zip_code)
+        new_info.save()
+        return HttpResponseRedirect(reverse('index.html'))
+    else:
+        return render(request, 'employees/index.html', context)
 
 
 def current_day(request):
