@@ -14,6 +14,7 @@ class Customer(models.Model):
     collect_day = models.DateField
     special_day = models.DateField(datetime.datetime)
     balance = models.IntegerField()
+    is_suspended = models.BooleanField(False)
 
     def __str__(self):
         return self.name

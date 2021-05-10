@@ -6,12 +6,10 @@
   {% if user.is_authenticated %}
     <h1>Hello Employee {{ user.username }}!</h1>
        <ul>
-           {% for one_customer in Customer %}
            <li>
-               # if user zip equals customer zip
-               {% if one_customer.zipcode == user.zipcode %}
-               
-               {% endif %}
+              {% for one_customer in views.filter %}
+                    {{ one_customer.cust_name }}
+               {% endfor %}
            </li>
        </ul>
   {% endif %}
