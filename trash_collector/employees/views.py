@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.apps import apps
 from .models import Employee
 from django.utils import timezone
-from django.db.models import Q
+
 
 # Create your views here.
 
@@ -33,10 +33,3 @@ def current_day(request):
         'today': today
     }
     return render(request, 'employees/index.html', context)
-
-def filter(request):
-    Customer = apps.get_model('customers.Customer')
-    User = apps.get_model('user.User')
-    if Customer.zipcode == User.zipcode and Customer.is_suspended == False:
-        Customer.objects.filter(Q(Customer.collect_day == current_day()) | Q(Customer.special_day == current_day()))
-    return render(request, 'employees/index.html')

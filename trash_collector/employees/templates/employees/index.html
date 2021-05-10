@@ -7,8 +7,12 @@
     <h1>Hello Employee {{ user.username }}!</h1>
        <ul>
            <li>
-              {% for one_customer in views.filter %}
-                    {{ one_customer.cust_name }}
+              {% for one_customer in customers %}
+                    {% if one_customer.zip_code == User.zip_code or one_customer.is_suspended == False %}
+                        {% if one_customer.collect_day == current_day or one_customer.special_day == current_day %}
+                            Customers: {{ one_customer.name }}
+                        {% endif%}
+                    {% endif %}
                {% endfor %}
            </li>
        </ul>
