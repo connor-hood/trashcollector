@@ -29,3 +29,8 @@ class CustomUserForm(UserCreationForm):
         return user
 
 
+class CustomerEditForm(forms.Form):
+    name = forms.CharField(label="Customer Name")
+    zip_code = forms.IntegerField(label="Zip Code")
+    collect_day = forms.DateField(label="Collect Day")
+    special_day = forms.DateField(label="Special Day")
