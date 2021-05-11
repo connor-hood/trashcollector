@@ -25,6 +25,16 @@ def index(request):
 
 
 def detail(request):
+    if request.method == 'GET':
+        name = request.GET.get('customer_name')
+        detail_info = Customer(name=name)
+        detail_info.save()
+        return HttpResponseRedirect(reverse('customers:index'))
+    else:
+        return render(request, 'customers/cust_detail.html')
+
+
+def edit(request):
     if request.method == 'POST':
         name = request.POST.get('customer_name')
         user = request.user
@@ -35,4 +45,4 @@ def detail(request):
         new_info.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
-        return render(request, 'customers/cust_detail.html')
+        return render(request, 'customers/edit.html')

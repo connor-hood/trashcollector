@@ -21,27 +21,27 @@ def index(request):
     return render(request, 'employees/index.html', context)
 
 
-def details(request, one_employee):
-    one_employee = Employee.objects.get(pk=one_employee)
+def details(request):
+    one_employee = Employee.objects.get(pk=Employee.pk)
     context = {
         'one_employee': one_employee
     }
-    if request.method == 'POST':
-        emp_name = request.POST.get('name')
-        zip_code = request.POST.get('zip_code')
-        new_info = Employee(name=emp_name, zip_code=zip_code)
+    if request.method == 'GET':
+        emp_name = request.GET.get('emp_name')
+        zipcode = request.GET.get('zipcode')
+        new_info = Employee(name=emp_name, zipcode=zipcode)
         new_info.save()
         return HttpResponseRedirect(reverse('index.html'))
     else:
         return render(request, 'employees/index.html', context)
 
 
-def today_customers(request, one_employee):
+def today_customers(request):
     Customer = apps.get_model('customers.Customer')
-    one_employee = Employee.objects.get(pk=one_employee)
+    one_employee = Employee.objects.get(pk=Employee.pk)
     today = timezone.now().day
     for one_customer in Customer:
-        if one_customer.zip_code == one_employee.zip_code or one_customer.is_suspended == False:
+        if one_customer.zip_code == one_employee.zipcode or one_customer.is_suspended == False:
             if one_customer.collect_day == today or one_customer.special_day == today:
                 return one_customer.name
     context = {
