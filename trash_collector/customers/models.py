@@ -8,13 +8,12 @@ from django.db import models
 
 class Customer(models.Model):
     name = models.CharField(max_length=50)
-    email = models.EmailField(verbose_name="email", max_length=100, unique=True)
     user = models.ForeignKey('accounts.User', blank=True, null=True, on_delete=models.CASCADE)
     zip_code = models.IntegerField()
-    collect_day = models.DateField()
+    collect_day = models.CharField(max_length=10)
     special_day = models.DateField(datetime.datetime)
-    balance = models.IntegerField()
-    is_suspended = models.BooleanField(False)
+    balance = models.IntegerField(default=0)
+    is_suspended = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
