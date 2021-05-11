@@ -22,18 +22,13 @@ def index(request):
 
 
 def details(request):
-    one_employee = Employee.objects.get(pk=Employee.pk)
+    current_user = request.user
+    employees_id = current_user.id
+    current_employee = Employee.objects.get(id=employees_id)
     context = {
-        'one_employee': one_employee
+        'current_employee': current_employee
     }
-    if request.method == 'GET':
-        emp_name = request.GET.get('emp_name')
-        zipcode = request.GET.get('zipcode')
-        new_info = Employee(name=emp_name, zipcode=zipcode)
-        new_info.save()
-        return HttpResponseRedirect(reverse('index.html'))
-    else:
-        return render(request, 'employees/index.html', context)
+    return render(request, 'employees/index.html', context)
 
 
 def today_customers(request):
@@ -44,7 +39,18 @@ def today_customers(request):
         if one_customer.zip_code == one_employee.zipcode or one_customer.is_suspended == False:
             if one_customer.collect_day == today or one_customer.special_day == today:
                 return one_customer.name
-    context = {
-        'one_customer': one_customer
-    }
-    return render(request, 'employees/index.html', context)
+        context = {
+            'one_customer': one_customer
+        }
+        return render(request, 'employees/index.html', context)
+
+
+def create(request):
+    if request.method == 'POST':
+        emp_name = request.POST.get('emp_name')
+        zipcode = request.POST.get('zipcode')
+        new_emp = Employee(emp_name=emp_name, zipcode=zipcode)
+        new_emp.save()
+        return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        return render(request, 'employees/index.html')

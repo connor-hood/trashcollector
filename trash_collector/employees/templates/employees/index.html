@@ -6,7 +6,8 @@
   {% if user.is_authenticated %}
     <h1>Hello Employee {{ user.username }}!</h1>
         <h2>Your Details:</h2>
-            Your zip code is: {{ one_employee.zipcode }} <br>
+            Your name is: {{ current_employee.emp_name }} <br>
+            Your zip code is: {{ current_employee.zipcode }} <br>
        <p>
            {{ one_customer.today_customers }}
        </p>
