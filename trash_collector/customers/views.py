@@ -35,4 +35,4 @@ def detail(request):
         new_info.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
-        return render(request, 'customers/cust_detail.html')
+        return render(request, 'customers/edit_detail.html')
