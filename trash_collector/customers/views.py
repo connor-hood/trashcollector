@@ -14,22 +14,20 @@ def index(request):
     user = request.user
     try:
         logged_in_customer = Customer.get(user=user)
-        context = {
-            'logged_in_customer': logged_in_customer
-        }
+        # create context dictionary
     except:
-        return HttpResponseRedirect(reverse('customers:index'))
+        return HttpResponseRedirect(reverse('customers:detail'))
     # It will be necessary while creating a customer/employee to assign the logged-in user as the user foreign key
     # This will allow you to later query the database using the logged-in user,
     # thereby finding the customer/employee profile that matches with the logged-in user.
     print(user)
-    return render(request, 'customers/index.html', context)
+    return render(request, 'customers/index.html')
 
 
 def detail(request):
     if request.method == 'POST':
-        user = request.user
         name = request.POST.get('customer_name')
+        user = request.user
         zip_code = request.POST.get('zip_code')
         collect_day = request.POST.get('collect_day')
         special_day = request.POST.get('special_day')
@@ -37,4 +35,4 @@ def detail(request):
         new_info.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
-        return render(request, 'customers/edit_detail.html')
+        return render(request, 'customers/cust_detail.html')

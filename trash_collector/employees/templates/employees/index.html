@@ -5,8 +5,10 @@
 {% block content %}
   {% if user.is_authenticated %}
     <h1>Hello Employee {{ user.username }}!</h1>
+        <h2>Your Details:</h2>
+            Your zip code is: {{ one_employee.zipcode }} <br>
        <p>
-           {{ employees.today_customers }}
+           {{ one_customer.today_customers }}
        </p>
   {% endif %}
 {% endblock %}

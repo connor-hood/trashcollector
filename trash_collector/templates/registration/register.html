@@ -9,6 +9,8 @@
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
+        Please enter your name:  <input type="text" id="customer_name" name="customer_name"><br>
+        Please enter your zip code: <input type="text" maxlength="5" id="zip_code" name="zip_code"> <br>
     <button type="submit">Sign Up</button>
   </form>
 {% endblock %}
