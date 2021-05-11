@@ -6,7 +6,7 @@
 
 {% block content %}
   <h2>Sign up</h2>
-  <form method="post" action="{% url 'employees:create' %}">
+  <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
         Please enter your name:  <input type="text" id="emp_name" name="emp_name"><br>

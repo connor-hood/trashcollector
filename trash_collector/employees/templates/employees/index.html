@@ -11,5 +11,14 @@
        <p>
            {{ one_customer.today_customers }}
        </p>
+
+
+        <h2>Edit Details</h2>
+        <form action="{% url 'employees:create'%}" method="post">
+            {% csrf_token %}
+        Please enter your name:  <input type="text" id="emp_name" name="emp_name"><br>
+        Please enter your zip code: <input type="text" maxlength="5" id="zipcode" name="zipcode"> <br>
+        <input type="submit" onclick="{% url 'employees:index' %}">
+        </form>
   {% endif %}
 {% endblock %}
