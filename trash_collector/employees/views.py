@@ -44,13 +44,13 @@ def today_customers(request):
         }
         return render(request, 'employees/index.html', context)
 
-
-def create(request):
+# adding new ones not updating
+def update_info(request):
     if request.method == 'POST':
         emp_name = request.POST.get('emp_name')
         zipcode = request.POST.get('zipcode')
-        new_emp = Employee(emp_name=emp_name, zipcode=zipcode)
-        new_emp.save()
+        new_info = Employee(emp_name=emp_name, zipcode=zipcode)
+        new_info.save()
         return HttpResponseRedirect(reverse('employees:index'))
     else:
         return render(request, 'employees/index.html')
