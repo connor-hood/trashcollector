@@ -7,7 +7,7 @@
 
 {% block content %}
   {% if user.is_authenticated %}
-    Hello {{ user.username }}!<br>
+    Hello {{ logged_in_customer.name }}!<br>
     Your current zip code pick up is: {{logged_in_customer.zip_code}} <br>
     Your current pick up day is: {{logged_in_customer.collect_day}} <br>
     Your special pick up day is: {{logged_in_customer.special_day}} <br>

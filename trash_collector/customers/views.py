@@ -11,9 +11,10 @@ from .models import Customer
 
 def index(request):
     # The following line will get the logged-in in user (if there is one) within any view function
-    user = request.user
+    user_info_id = request.user.id
+    print(request)
     try:
-        logged_in_customer = Customer.get(user=user)
+        logged_in_customer = Customer.objects.get(pk=user_info_id)
         context = {
             'logged_in_customer': logged_in_customer
         }
@@ -22,11 +23,11 @@ def index(request):
     # It will be necessary while creating a customer/employee to assign the logged-in user as the user foreign key
     # This will allow you to later query the database using the logged-in user,
     # thereby finding the customer/employee profile that matches with the logged-in user.
-    print(user)
-    return render(request, 'customers.html', context)
+    return render(request, 'customers/index.html', context)
 
 
 def detail(request):
+    print(request.method)
     if request.method == 'POST':
         user = request.user
         name = request.POST.get('customer_name')
@@ -36,5 +37,3 @@ def detail(request):
         new_info = Customer(user=user, name=name, zip_code=zip_code, collect_day=collect_day, special_day=special_day)
         new_info.save()
         return HttpResponseRedirect(reverse('customers:index'))
-    else:
-        return render(request, 'customers/edit_detail.html')
