@@ -22,6 +22,6 @@
         </select><br>
         Please enter your ONE TIME special pick up date: <input type="date" id="special_day" name="special_day"> <br>
         Please check if you would like your services to be suspended <input type="checkbox" id="is_suspended"><br>
-        <input type="submit" onclick="{% url 'customers:index' %}">
+        <input type="submit" onclick="{% url 'customers:display_detail' %}">
         </form>
 {% endblock %}

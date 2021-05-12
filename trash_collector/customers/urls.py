@@ -7,5 +7,6 @@ from . import views
 app_name = "customers"
 urlpatterns = [
     path('', views.index, name="index"),
-    path('detail', views.detail, name="detail")
+    path('detail', views.detail, name="detail"),
+    path('display', views.display, name="display"),
 ]

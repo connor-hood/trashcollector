@@ -19,7 +19,7 @@ def index(request):
             'logged_in_customer': logged_in_customer
         }
     except:
-        return HttpResponseRedirect(reverse('customers:index'))
+        return HttpResponseRedirect(reverse('customers:detail'))
     # It will be necessary while creating a customer/employee to assign the logged-in user as the user foreign key
     # This will allow you to later query the database using the logged-in user,
     # thereby finding the customer/employee profile that matches with the logged-in user.
@@ -38,4 +38,21 @@ def detail(request):
         new_info.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
-        return render(request, 'customers/edit_detail.html')
+        return render(request, 'customers/display_detail.html')
+
+
+def display(request):
+    # The following line will get the logged-in in user (if there is one) within any view function
+    user_info_id = request.user.id
+    print(request)
+    try:
+        logged_in_customer = Customer.objects.get(pk=user_info_id)
+        context = {
+            'logged_in_customer': logged_in_customer
+        }
+    except:
+        return HttpResponseRedirect(reverse('customers:display_detail'))
+    # It will be necessary while creating a customer/employee to assign the logged-in user as the user foreign key
+    # This will allow you to later query the database using the logged-in user,
+    # thereby finding the customer/employee profile that matches with the logged-in user.
+    return render(request, 'customers/index.html', context)
