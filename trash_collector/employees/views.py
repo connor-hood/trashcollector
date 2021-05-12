@@ -24,7 +24,7 @@ def index(request):
 def details(request):
     current_user = request.user
     employees_id = current_user.id
-    current_employee = Employee.objects.get(id=employees_id)
+    current_employee = Employee.objects.get(user_id=employees_id)
     context = {
         'current_employee': current_employee
     }
@@ -44,13 +44,15 @@ def today_customers(request):
         }
         return render(request, 'employees/index.html', context)
 
+
 # adding new ones not updating
 def update_info(request):
+    user_info_id = request.user.id
     if request.method == 'POST':
-        emp_name = request.POST.get('emp_name')
-        zipcode = request.POST.get('zipcode')
-        new_info = Employee(emp_name=emp_name, zipcode=zipcode)
-        new_info.save()
+        current_employee = Employee.objects.get(pk=user_info_id)
+        current_employee.emp_name = request.POST.get('emp_name')
+        current_employee.zipcode = request.POST.get('zipcode')
+        current_employee.save(update_fields=['emp_name', 'zipcode'])
         return HttpResponseRedirect(reverse('employees:index'))
     else:
         return render(request, 'employees/index.html')
