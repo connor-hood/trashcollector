@@ -9,7 +9,9 @@
             Your name is: {{ current_employee.emp_name }} <br>
             Your zip code is: {{ current_employee.zipcode }} <br>
        <p>
-           {{ one_customer.today_customers }}
+           {% for index in one_customer %}
+                {{ index.name }}
+           {% endfor %}
        </p>
 
         <h2>Edit Details</h2>

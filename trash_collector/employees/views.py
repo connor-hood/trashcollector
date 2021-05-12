@@ -14,35 +14,45 @@ from django.utils import timezone
 
 def index(request):
     # Get the Customer model from the other app, it can now be used to query the db
+    user_info_id = request.user.id
     Customer = apps.get_model('customers.Customer')
+    current_employee = Employee.objects.get(pk=user_info_id)
     context = {
-        'Customer': Customer
-    }
-    return render(request, 'employees/index.html', context)
-
-
-def details(request):
-    current_user = request.user
-    employees_id = current_user.id
-    current_employee = Employee.objects.get(user_id=employees_id)
-    context = {
+        'Customer': Customer,
         'current_employee': current_employee
     }
     return render(request, 'employees/index.html', context)
 
 
+def details(request):
+    if request.method == 'POST':
+        emp_name = request.POST.get('emp_name')
+        zipcode = request.POST.get('zipcode')
+        new_info = Employee(emp_name=emp_name, zipcode=zipcode)
+        new_info.save()
+        return HttpResponseRedirect(reverse('employees:index'))
+    else:
+        return render(request, 'employees/index.html')
+
+
 def today_customers(request):
     Customer = apps.get_model('customers.Customer')
-    one_employee = Employee.objects.get(pk=Employee.pk)
+    user_info_id = request.user.id
+    customer_id = Customer.id
+    one_employee = Employee.objects.get(pk=user_info_id)
+    one_customer = Customer.objects.get(pk=customer_id)
+    context = {
+        'Customer': Customer,
+        'one_customer': one_customer
+    }
     today = timezone.now().day
-    for one_customer in Customer:
-        if one_customer.zip_code == one_employee.zipcode or one_customer.is_suspended == False:
-            if one_customer.collect_day == today or one_customer.special_day == today:
-                return one_customer.name
-        context = {
-            'one_customer': one_customer
-        }
-        return render(request, 'employees/index.html', context)
+
+    if one_customer.zip_code == one_employee.zipcode and one_customer.is_suspended == False:
+        if one_customer.collect_day == today or one_customer.special_day == today:
+            return one_customer.name
+
+
+    return render(request, 'employees/index.html', context)
 
 
 # adding new ones not updating
